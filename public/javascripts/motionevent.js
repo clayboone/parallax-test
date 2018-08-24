@@ -1,6 +1,6 @@
 window.addEventListener('load', (ev) => {
     if (window.DeviceMotionEvent !== undefined) {
-        console.log('detected motion event support');
+        // note: this works in Desktop Chrome for some reason
         window.addEventListener('devicemotion', handleMotion);
     }
 });
