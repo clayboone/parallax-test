@@ -23,11 +23,27 @@ function handleMotion(ev) {
         };
     } else {
         window.accelHistory.x.push(aX);
-        window.accelHistory.y.push(aX);
+        window.accelHistory.y.push(aY);
         window.accelHistory.z.push(aZ);
     }
 
-    document.querySelector('#x').innerHTML = aX.toFixed(2);
-    document.querySelector('#y').innerHTML = aY.toFixed(2);
-    document.querySelector('#z').innerHTML = aZ.toFixed(2);
+    while (window.accelHistory.x.length > 50) {
+        window.accelHistory.x.shift();
+        window.accelHistory.y.shift();
+        window.accelHistory.z.shift();
+    }
+
+    document.querySelector('#x').innerHTML = average(window.accelHistory.x).toFixed(1);
+    document.querySelector('#y').innerHTML = average(window.accelHistory.y).toFixed(1);
+    document.querySelector('#z').innerHTML = average(window.accelHistory.z).toFixed(1);
+}
+
+
+function average(list) {
+    let sum = 0;
+    for (let i = 0; i < list.length; i++) {
+        sum += list[i];
+    }
+
+    return sum / list.length;
 }
